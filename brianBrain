@@ -1,0 +1,124 @@
+import copy, random, sys, time 
+
+#author Lucas_C_Wright
+#Cellular Automata Brian's Brain proof of concept implementation
+
+#In each generation: 
+#a cell turns "on" if it was "off" if it has exactly two neighbors that are on,
+#cells that were "on" go into the "dying" state (which is not counted as an "on" cell in the neighbor count)
+#cells that were in the "dying" state go into the "off" state. 
+
+ # Set up the constants:
+WIDTH = 79  # The width of the cell grid.
+HEIGHT = 20  # The height of the cell grid.
+ON = '|'  # The character representing a living cell.
+OFF = ' '   # The character representing a OFF cell.
+DYING = 'o' # The character representing a DYING cell.
+WRAP = False # Boolean to decide if we want wrapping edges or not.
+
+# The cells and nextCells are dictionaries for the state of the game.
+# Their keys are (x, y) tuples and their values are one of the ON or OFF values.
+nextCells = {}
+
+def generateCells(cellList):
+    # Put random OFF, DYING, and ON cells into nextCells:
+    for x in range(WIDTH):  # Loop over every possible column.
+        for y in range(HEIGHT):  # Loop over every possible row.
+            # 1/3 chance for each state
+            res = random.randint(0, 2)
+            if res == 0:
+                cellList[(x, y)] = ON  # Add a ON cell.
+            elif res == 1:
+                cellList[(x, y)] = DYING  # Add a DYING cell.
+            else: 
+                cellList[(x,y)] = OFF #Add a OFF cell
+
+
+generateCells(nextCells)
+
+while True:  # Main program loop.
+    # Each iteration of this loop is a new generation of the simulation.
+ 
+    # Separate each step with newlines.
+    print('\n')
+    cells = copy.deepcopy(nextCells)
+ 
+    # Print cells on the screen:
+    for y in range(HEIGHT):
+        for x in range(WIDTH):
+            print(cells[(x, y)], end='')  # Print the # or space.
+        print()  # Print a newline at the end of the row.
+
+    #var to check if the grid is empty. Starts as empty each new generation and is changed
+    #when a cell is made ON or DYING.
+    empty = True
+ 
+    # Calculate the next step's cells based on current step's cells:
+    for x in range(WIDTH):
+        for y in range(HEIGHT):
+            # Get the neighboring coordinates of (x, y)
+            left  = (x - 1) % WIDTH
+            right = (x + 1) % WIDTH
+            above = (y - 1) % HEIGHT
+            below = (y + 1) % HEIGHT
+ 
+            # Count the number of ON neighbors:
+            numNeighbors = 0
+            if WRAP:    #Count the neighbors even if they wrap around
+                if cells[(left, above)] == ON:
+                    numNeighbors += 1  # Top-left neighbor is ON.
+                if cells[(x, above)] == ON:
+                    numNeighbors += 1  # Top neighbor is ON.
+                if cells[(right, above)] == ON:
+                    numNeighbors += 1  # Top-right neighbor is ON.
+                if cells[(left, y)] == ON:
+                    numNeighbors += 1  # Left neighbor is ON.
+                if cells[(right, y)] == ON:
+                    numNeighbors += 1  # Right neighbor is ON.
+                if cells[(left, below)] == ON:
+                    numNeighbors += 1  # Bottom-left neighbor is ON.
+                if cells[(x, below)] == ON:
+                    numNeighbors += 1  # Bottom neighbor is ON.
+                if cells[(right, below)] == ON:
+                    numNeighbors += 1  # Bottom-right neighbor is ON.
+            else:       #Count the neighbors NOT including wrap
+                if cells[(left, above)] == ON and left < x and above < y:
+                    numNeighbors += 1  # Top-left neighbor is ON.
+                if cells[(x, above)] == ON and above < y:
+                    numNeighbors += 1  # Top neighbor is ON.
+                if cells[(right, above)] == ON and right > x and above < y:
+                    numNeighbors += 1  # Top-right neighbor is ON.
+                if cells[(left, y)] == ON and left < x:
+                    numNeighbors += 1  # Left neighbor is ON.
+                if cells[(right, y)] == ON and right > x:
+                    numNeighbors += 1  # Right neighbor is ON.
+                if cells[(left, below)] == ON and left < x and below > y:
+                    numNeighbors += 1  # Bottom-left neighbor is ON.
+                if cells[(x, below)] == ON and below > y:
+                    numNeighbors += 1  # Bottom neighbor is ON.
+                if cells[(right, below)] == ON and right > x and below > y:
+                    numNeighbors += 1  # Bottom-right neighbor is ON.
+ 
+             # Set cell based on Brian's Brain rules:
+            if cells[(x, y)] == OFF and (numNeighbors == 2):
+                # OFF cells with exactly 2 ON neighbors turn ON:
+                nextCells[(x, y)] = ON
+                empty = False
+            elif cells[(x, y)] == ON:
+                # ON cells go into DYING:
+                nextCells[(x, y)] = DYING
+                empty = False
+            else:
+                # Cells in DYING state turn OFF:
+                nextCells[(x, y)] = OFF
+               
+    if empty:
+        generateCells(nextCells)
+
+    try:
+        time.sleep(0.1)  # Pause briefly for viewability. 
+    except KeyboardInterrupt:
+        print("Conway's Game of Life")
+        print('Base Code By Al Sweigart al@inventwithpython.com')
+        print('Edited By Lucas C Wright')
+        sys.exit()  # When Ctrl-C is pressed, end the program.
