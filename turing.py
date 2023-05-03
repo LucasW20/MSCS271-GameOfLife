@@ -99,3 +99,8 @@ while True:
                 nextCells[(x, y)] = A
             else:
                 nextCells[(x, y)] = cells[(x, y)]
+    try:
+        time.sleep(.25)  # Add a 1 second pause to reduce flickering.
+    except KeyboardInterrupt:
+        print("Conway's Game of Life")
+        print('By Al Sweigart al@inventwithpython.com')
