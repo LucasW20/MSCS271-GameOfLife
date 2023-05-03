@@ -1,6 +1,9 @@
 import copy, random, sys, time 
  # Set up the constants:
-
+ # Rules: 
+ # if ALIVE: turns 90 degree to the right, move up and then move right
+ # if DEAD: turns 90 degree to the left, move up and then move right
+ # DEAD cells turn into ALIVE and ALIVE cells turn into DEAD when the Ant walks over them.
 WIDTH = 79   # The width of the cell grid.
 HEIGHT = 20  # The height of the cell grid.
 # (!) Try changing ALIVE to '#' or another character:
