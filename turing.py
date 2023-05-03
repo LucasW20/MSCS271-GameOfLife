@@ -104,3 +104,4 @@ while True:
     except KeyboardInterrupt:
         print("Conway's Game of Life")
         print('By Al Sweigart al@inventwithpython.com')
+        sys.exit()
