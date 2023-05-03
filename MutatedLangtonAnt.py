@@ -6,12 +6,9 @@ import copy, random, sys, time
  # DEAD cells turn into ALIVE and ALIVE cells turn into DEAD when the Ant walks over them.
 WIDTH = 79   # The width of the cell grid.
 HEIGHT = 20  # The height of the cell grid.
-# (!) Try changing ALIVE to '#' or another character:
 ALIVE = 'O'  # The character representing a living cell.
-# (!) Try changing DEAD to '.' or another character:
 DEAD = ' '   # The character representing a dead cell.
 
-# (!) Try changing ALIVE to '|' and DEAD to '-'.
 
 # The cells and nextCells are dictionaries for the state of the game.
 # Their keys are (x, y) tuples and their values are one of the ALIVE
