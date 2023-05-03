@@ -1,6 +1,5 @@
 import copy, random, sys, time 
 
-
 WIDTH = 79
 HEIGHT = 20
 ALIVE = 'O'
@@ -19,7 +18,7 @@ for x in range(WIDTH):
 while True:  # Main program loop.
      # Each iteration of this loop is a step of the simulation.
  
-     #print('\n' * 50)  # Separate each step with newlines.
+                             # Separate each step with newlines.
      print('\n')
      cells = copy.deepcopy(nextCells)
  

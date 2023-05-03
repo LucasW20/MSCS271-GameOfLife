@@ -22,7 +22,7 @@ nextCells=  {}
 
 for y in range(HEIGHT):
     for x in range(WIDTH):
-        res = random.randint(0,3)
+        res = random.randint(0,3)   #25% chance to be alive
         if res == 1:
             nextCells[(x,y)] = ALIVE
         else:
@@ -65,8 +65,9 @@ while True: #Each interation of this loop is a new generation
             if cells[(right, below)] == ALIVE:
                 numNeighbors += 1  # Bottom-right neighbor is ON.
 
-            numDead = 8 - numNeighbors
 
+            #Rules for dungeon
+            numDead = 8 - numNeighbors
             if numDead > numNeighbors:  #majority alive
                 nextCells[(x,y)] = DEAD
             else:   #tiebreaker
@@ -76,4 +77,4 @@ while True: #Each interation of this loop is a new generation
         time.sleep(0.1)  # Pause briefly for viewability. 
     except KeyboardInterrupt:
         print('Edited By Lucas C Wright')
-        sys.exit()  # When Ctrl-C is pressed, end the program.
+        sys.exit() 
