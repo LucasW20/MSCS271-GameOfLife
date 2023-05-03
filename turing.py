@@ -48,6 +48,7 @@ while True:
                 nextCells[(x, y)] = BLANK
             elif (cells[(left, y)] == A) and (cells[(left, above)] == BLANK):
                 nextCells[(x, y)] = BLANK
+                sys.exit()
             elif (cells[(x, above)] == a) and (cells[(x, y)] == A):
                 nextCells[(x, y)] = BLANK
             elif (cells[(x, below)] == A) and (cells[(x, y)] == a):
@@ -60,7 +61,6 @@ while True:
                 nextCells[(x, y)] = a
             elif (cells[(left, y)] == B) and (cells[(left, above)] == a):
                 nextCells[(x, y)] = B
-                print('hello')
             elif (cells[(x, above)] == b) and (cells[(x, y)] == B):
                 nextCells[(x, y)] = BLANK
             elif (cells[(x, below)] == B) and (cells[(x, y)] == b):
