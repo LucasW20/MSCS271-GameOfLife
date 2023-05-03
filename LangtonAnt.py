@@ -173,6 +173,5 @@ while True:  # Main program loop.
      try:
          time.sleep(0.1)  # Add a 1 second pause to reduce flickering.
      except KeyboardInterrupt:
-         print("Conway's Game of Life")
-         print('By Al Sweigart al@inventwithpython.com')
+         print("Original Langton's Ant")
          sys.exit()  # When Ctrl-C is pressed, end the program.
