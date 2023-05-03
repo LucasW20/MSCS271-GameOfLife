@@ -1,6 +1,6 @@
 import copy, random, sys, time 
 WIDTH = 20
-HEIGHT = 10
+HEIGHT = 4
 BLANK = ' '
 a = 'a'
 b = 'b'
@@ -12,7 +12,7 @@ NULL = '-'
 nextCells = {}
 for x in range(WIDTH):
         for y in range(HEIGHT):
-            if y == 4:
+            if y == 1:
                 if x < 5:
                     nextCells[(x, y)] = BLANK
                 elif x < 10:
@@ -21,7 +21,7 @@ for x in range(WIDTH):
                     nextCells[(x, y)] = b
                 else:
                     nextCells[(x, y)] = BLANK
-            elif y == 5:
+            elif y == 2:
                 if x == 5:
                     nextCells[(x, y)] = A
                 else:
@@ -100,8 +100,7 @@ while True:
             else:
                 nextCells[(x, y)] = cells[(x, y)]
     try:
-        time.sleep(.25)  # Add a 1 second pause to reduce flickering.
+        time.sleep(.25)
     except KeyboardInterrupt:
         print("Turing Machine")
-        print('base codes by Al Sweigart al@inventwithpython.com')
         sys.exit()
